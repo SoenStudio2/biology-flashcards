@@ -1,64 +1,111 @@
 /* Общие стили */
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f9;
+* {
     margin: 0;
     padding: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
+    box-sizing: border-box;
 }
 
-/* Стиль для заголовка */
-header h1 {
-    text-align: center;
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
     color: #333;
+}
+
+header {
+    text-align: center;
+    padding: 20px;
+    background-color: #4CAF50;
+    color: white;
+}
+
+h1 {
     font-size: 2.5rem;
-    margin-bottom: 30px;
 }
 
 /* Контейнер для карточек */
 .cards-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    padding: 20px;
+    justify-items: center;
+}
+
+.card {
+    width: 250px;
+    height: 350px;
+    perspective: 1000px; /* Создаём перспективу для переворота */
+}
+
+.card-inner {
+    width: 100%;
+    height: 100%;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+    position: relative;
+}
+
+.card:hover .card-inner {
+    transform: rotateY(180deg); /* Переворот карточки при наведении */
+}
+
+.card-front, .card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+}
+
+.card-front {
+    background-color: #ffffff;
     display: flex;
     justify-content: center;
-    flex-wrap: wrap;
-    gap: 20px;
-}
-
-/* Стиль для карточек */
-.card {
-    background-color: white;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    padding: 20px;
-    width: 250px;
+    align-items: center;
+    flex-direction: column;
     text-align: center;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    cursor: pointer;
+    padding: 10px;
 }
 
-.card:hover {
-    transform: scale(1.05);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+.card-back {
+    background-color: #f1f1f1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    padding: 10px;
+    transform: rotateY(180deg); /* Разворачиваем заднюю сторону */
+}
+
+.card img {
+    width: 100%;
+    height: auto;
+    margin-bottom: 10px;
 }
 
 .card h2 {
-    font-size: 1.5rem;
-    color: #333;
-    margin-bottom: 10px;
+    font-size: 1.2rem;
+    font-weight: bold;
 }
 
 .card p {
     font-size: 1rem;
-    color: #666;
+    padding: 10px;
+    text-align: center;
 }
 
-/* Адаптивность для мобильных устройств */
-@media (max-width: 768px) {
+/* Адаптивные стили */
+@media (max-width: 600px) {
     .cards-container {
-        flex-direction: column;
+        grid-template-columns: 1fr;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+
+    .card {
+        width: 200px;
+        height: 300px;
     }
 }
