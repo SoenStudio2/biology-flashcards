@@ -10,15 +10,14 @@
 
     <div class="card-container">
         <div class="card" id="card">
-            <h2 data-fixed-title></h2>
-            <div class="card-inner">
-    <div class="card-front">
-    </div>
-    <div class="card-back">
-        <img src="img/nature-photo.jpg" alt="Природа" class="back-image">
-        <p data-back-text></p>
-    </div>
-</div>
+            <h2 data-fixed-title></h2> <div class="card-inner">
+                <div class="card-front">
+                    </div>
+                <div class="card-back">
+                    <img src="img/nature-photo.jpg" alt="Природа" class="back-image">
+                    <p data-back-text></p>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -31,7 +30,7 @@
         const cardsData = [
             { fixedTitle: "Что такое клетка?", backImage: "img/cell-photo.jpg", backText: "Клетка — основная структурная и функциональная единица живых существ." },
             { fixedTitle: "Как происходит фотосинтез?", backImage: "img/photosynthesis-photo.jpg", backText: "Фотосинтез — процесс, при котором растения используют солнечную энергию для синтеза пищи из углекислого газа и воды." },
-            { fixedTitle: "Какова структура клетки?", backImage: "img/cell-structure.jpg", backText: "Клетка состоит из мембраны, ядра, цитоплазмы и органелл, таких как митохондрии, рибосомы и другие." },
+            { fixedTitle: "Какова структура клетки?", backImage: "img/cell-structure-photo.jpg", backText: "Клетка состоит из мембраны, ядра, цитоплазмы и органелл, таких как митохондрии, рибосомы и другие." },
             { fixedTitle: "Что такое хемосинтез?", backImage: "img/chemosynthesis-photo.jpg", backText: "Хемосинтез — это процесс, при котором некоторые организмы используют химическую энергию для синтеза органических веществ." },
             { fixedTitle: "Что такое экосистема?", backImage: "img/ecosystem-photo.jpg", backText: "Экосистема — это совокупность живых существ и окружающей их среды, взаимодействующих между собой." },
             { fixedTitle: "Что такое испарение?", backImage: "img/evaporation-photo.jpg", backText: "Испарение — это процесс превращения жидкости в газ под воздействием температуры." },
@@ -46,7 +45,7 @@
             { fixedTitle: "Что такое опыление?", backImage: "img/pollination-photo.jpg", backText: "Опыление — это процесс переноса пыльцы с тычинок цветка на пестик другого цветка того же вида." },
             { fixedTitle: "Что такое азотный цикл?", backImage: "img/nitrogen-cycle-photo.jpg", backText: "Азотный цикл — это процесс превращения азота в различные формы, которые могут использовать растения и животные." },
             { fixedTitle: "Что такое пищевые цепочки?", backImage: "img/food-chain-photo.jpg", backText: "Пищевые цепочки — это последовательность организмов, в которой каждый последующий организм питается предыдущим." },
-            { fixedTitle: "Что такое дыхание?", backImage: "img/respiration-photo..jpg", backText: "Дыхание — это процесс, при котором организмы поглощают кислород и выделяют углекислый газ." },
+            { fixedTitle: "Что такое дыхание?", backImage: "img/respiration-photo.jpg", backText: "Дыхание — это процесс, при котором организмы поглощают кислород и выделяют углекислый газ." },
             { fixedTitle: "Что такое адаптация?", backImage: "img/adaptation-photo.jpg", backText: "Адаптация — это процесс, в результате которого виды становятся более подходящими для выживания в своей среде." },
             { fixedTitle: "Что такое фотосинтез?", backImage: "img/photosynthesis-photo.jpg", backText: "Фотосинтез — это процесс, при котором растения используют солнечную энергию для производства органических веществ." }
         ];
@@ -55,18 +54,13 @@
         const cardElement = document.getElementById('card');
         const prevBtn = document.getElementById('prevBtn');
         const nextBtn = document.getElementById('nextBtn');
-        const fixedTitleElement = cardElement.querySelector('[data-fixed-title]');
-        const cardInnerElement = cardElement.querySelector('.card-inner');
+        const fixedTitleElement = cardElement.querySelector('[data-fixed-title]'); // Получаем зафиксированный заголовок
         const backImageElement = cardElement.querySelector('.card-back .back-image');
         const backTextElement = cardElement.querySelector('[data-back-text]');
-        const cardMysteryElement = cardElement.querySelector('.card-mystery');
-        const cardFrontElement = cardElement.querySelector('.card-front');
-
-        let firstClick = true;
 
         function updateCard(index) {
             const cardData = cardsData[index];
-            fixedTitleElement.textContent = cardData.fixedTitle;
+            fixedTitleElement.textContent = cardData.fixedTitle; // Устанавливаем текст в зафиксированном заголовке
             backImageElement.src = cardData.backImage;
             backTextElement.textContent = cardData.backText;
             cardElement.classList.remove('flipped');
@@ -77,9 +71,6 @@
                 currentCardIndex = index;
                 updateCard(currentCardIndex);
                 updateNavigationButtons();
-                // Сбрасываем состояние первого клика при смене карточки
-                firstClick = true;
-                cardInnerElement.classList.remove('flipped'); // Убеждаемся, что показывается загадка
             }
         }
 
@@ -92,15 +83,7 @@
         }
 
         function flipCard() {
-            if (firstClick) {
-                // При первом клике показываем лицевую сторону
-                cardMysteryElement.style.display = 'none';
-                cardFrontElement.style.display = 'flex';
-                firstClick = false;
-                cardInnerElement.classList.add('flipped'); // Не переворачиваем, просто показываем лицевую
-            } else {
-                cardInnerElement.classList.toggle('flipped');
-            }
+            cardElement.classList.toggle('flipped');
         }
 
         function updateNavigationButtons() {
@@ -111,11 +94,6 @@
         prevBtn.addEventListener('click', prevCard);
         nextBtn.addEventListener('click', nextCard);
         cardElement.addEventListener('click', flipCard);
-
-        // Изначально скрываем лицевую сторону
-        const initialCardData = cardsData[0];
-        fixedTitleElement.textContent = initialCardData.fixedTitle;
-        cardFrontElement.style.display = 'none';
 
         showCard(0);
     </script>
