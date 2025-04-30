@@ -5,110 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Биологический справочник</title>
     <link rel="stylesheet" href="style.css">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #8FBC8F; /* Зеленый цвет */
-            color: #333;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            margin: 0;
-        }
-
-        .card-container {
-            width: 500px; /* Увеличенная ширина */
-            height: 700px; /* Увеличенная высота */
-            perspective: 1000px;
-            margin-bottom: 40px; /* Увеличенный отступ */
-        }
-
-        .card {
-            width: 100%;
-            height: 100%;
-            transform-style: preserve-3d;
-            position: relative;
-            cursor: pointer;
-        }
-
-        .card.flipped .card-inner {
-            transform: rotateY(180deg);
-        }
-
-        .card-inner {
-            width: 100%;
-            height: 100%;
-            position: relative;
-            transform-style: preserve-3d;
-            transition: transform 0.6s;
-        }
-
-        .card-front, .card-back {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            backface-visibility: hidden;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            padding: 20px; /* Увеличенные отступы */
-            box-sizing: border-box;
-            border-radius: 16px; /* Увеличенные скругления */
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Увеличенная тень */
-            background-color: #D3D3D3; /* Серый цвет внутри карточки */
-        }
-
-        .card-front {
-            justify-content: flex-start; /* Текст вверху */
-        }
-
-        .card-back {
-            justify-content: center; /* Изображение по центру */
-            transform: rotateY(180deg);
-        }
-
-        .card-front h2 {
-            font-size: 2.4rem; /* Увеличенный размер шрифта */
-            font-weight: bold;
-            margin-top: 20px; /* Отступ сверху для текста */
-            margin-bottom: 10px;
-        }
-
-        .card-back img {
-            width: 80%;
-            height: auto;
-            max-height: 80%; /* Чтобы изображение не выходило за границы */
-            object-fit: contain;
-        }
-
-        .navigation {
-            display: flex;
-            gap: 40px; /* Увеличенный отступ между кнопками */
-            margin-top: 30px; /* Отступ сверху от карточки */
-        }
-
-        .nav-button {
-            padding: 15px 30px; /* Увеличенные кнопки */
-            font-size: 1.2rem;
-            cursor: pointer;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 8px; /* Увеличенные скругления */
-            transition: background-color 0.3s ease;
-        }
-
-        .nav-button:hover {
-            background-color: #45a049;
-        }
-
-        .hidden {
-            display: none !important;
-        }
-    </style>
 </head>
 <body>
 
@@ -119,7 +15,8 @@
                     <h2 data-front-title></h2>
                 </div>
                 <div class="card-back">
-                    <img src="img/nature-photo.jpg" alt="Природа">
+                    <img src="img/nature-photo.jpg" alt="Природа" class="back-image">
+                    <p data-back-text></p>
                 </div>
             </div>
         </div>
@@ -158,12 +55,15 @@
         const cardElement = document.getElementById('card');
         const prevBtn = document.getElementById('prevBtn');
         const nextBtn = document.getElementById('nextBtn');
-        const cardInner = cardElement.querySelector('.card-inner');
         const frontTitleElement = cardElement.querySelector('[data-front-title]');
+        const backImageElement = cardElement.querySelector('.card-back .back-image');
+        const backTextElement = cardElement.querySelector('[data-back-text]'); // Получаем элемент для текста ответа
 
         function updateCard(index) {
             const cardData = cardsData[index];
             frontTitleElement.textContent = cardData.frontTitle;
+            backImageElement.src = cardData.backImage;
+            backTextElement.textContent = cardData.backText; // Устанавливаем текст ответа
             cardElement.classList.remove('flipped');
         }
 
