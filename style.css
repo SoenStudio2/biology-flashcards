@@ -75,14 +75,14 @@ body {
     transform: rotateY(180deg);
 }
 
-.card-mystery {
-    transform: rotateY(0deg); /* Убеждаемся, что видна изначально */
+transform: rotateY(0deg); /* Убеждаемся, что видна изначально */
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     text-align: center;
     background-color: #f0f0f0; /* Светло-серый цвет карточки */
+    pointer-events: none; /* Добавьте эту строку */
 }
 
 .card-back img {
