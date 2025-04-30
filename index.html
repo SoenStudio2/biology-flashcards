@@ -10,7 +10,11 @@
 
     <div class="card-container">
         <div class="card" id="card">
-            <h2 data-fixed-title></h2> <div class="card-inner">
+            <h2 data-fixed-title></h2>
+            <div class="card-inner">
+                <div class="card-mystery">
+                    <span>?</span>
+                </div>
                 <div class="card-front">
                     </div>
                 <div class="card-back">
@@ -54,13 +58,18 @@
         const cardElement = document.getElementById('card');
         const prevBtn = document.getElementById('prevBtn');
         const nextBtn = document.getElementById('nextBtn');
-        const fixedTitleElement = cardElement.querySelector('[data-fixed-title]'); // Получаем зафиксированный заголовок
+        const fixedTitleElement = cardElement.querySelector('[data-fixed-title]');
+        const cardInnerElement = cardElement.querySelector('.card-inner');
         const backImageElement = cardElement.querySelector('.card-back .back-image');
         const backTextElement = cardElement.querySelector('[data-back-text]');
+        const cardMysteryElement = cardElement.querySelector('.card-mystery');
+        const cardFrontElement = cardElement.querySelector('.card-front');
+
+        let firstClick = true;
 
         function updateCard(index) {
             const cardData = cardsData[index];
-            fixedTitleElement.textContent = cardData.fixedTitle; // Устанавливаем текст в зафиксированном заголовке
+            fixedTitleElement.textContent = cardData.fixedTitle;
             backImageElement.src = cardData.backImage;
             backTextElement.textContent = cardData.backText;
             cardElement.classList.remove('flipped');
@@ -71,6 +80,9 @@
                 currentCardIndex = index;
                 updateCard(currentCardIndex);
                 updateNavigationButtons();
+                // Сбрасываем состояние первого клика при смене карточки
+                firstClick = true;
+                cardInnerElement.classList.remove('flipped'); // Убеждаемся, что показывается загадка
             }
         }
 
@@ -83,7 +95,15 @@
         }
 
         function flipCard() {
-            cardElement.classList.toggle('flipped');
+            if (firstClick) {
+                // При первом клике показываем лицевую сторону
+                cardMysteryElement.style.display = 'none';
+                cardFrontElement.style.display = 'flex';
+                firstClick = false;
+                cardInnerElement.classList.add('flipped'); // Не переворачиваем, просто показываем лицевую
+            } else {
+                cardInnerElement.classList.toggle('flipped');
+            }
         }
 
         function updateNavigationButtons() {
@@ -94,6 +114,11 @@
         prevBtn.addEventListener('click', prevCard);
         nextBtn.addEventListener('click', nextCard);
         cardElement.addEventListener('click', flipCard);
+
+        // Изначально скрываем лицевую сторону
+        const initialCardData = cardsData[0];
+        fixedTitleElement.textContent = initialCardData.fixedTitle;
+        cardFrontElement.style.display = 'none';
 
         showCard(0);
     </script>
