@@ -1,7 +1,69 @@
-document.querySelectorAll('.card').forEach(card => {
-    card.addEventListener('click', () => {
-        const title = card.querySelector('h2').textContent;
-        const description = card.querySelector('p').textContent;
-        alert(`Вы кликнули на карточку: ${title}\nОписание: ${description}`);
-    });
-});
+const cardsData = [
+    { frontTitle: "Что такое клетка?", backImage: "img/cell-photo.jpg", backText: "Клетка — основная структурная и функциональная единица живых существ." },
+    { frontTitle: "Как происходит фотосинтез?", backImage: "img/photosynthesis-photo.jpg", backText: "Фотосинтез — процесс, при котором растения используют солнечную энергию для синтеза пищи из углекислого газа и воды." },
+    { frontTitle: "Какова структура клетки?", backImage: "img/cell-structure-photo.jpg", backText: "Клетка состоит из мембраны, ядра, цитоплазмы и органелл, таких как митохондрии, рибосомы и другие." },
+    { frontTitle: "Что такое хемосинтез?", backImage: "img/chemosynthesis-photo.jpg", backText: "Хемосинтез — это процесс, при котором некоторые организмы используют химическую энергию для синтеза органических веществ." },
+    { frontTitle: "Что такое экосистема?", backImage: "img/ecosystem-photo.jpg", backText: "Экосистема — это совокупность живых существ и окружающей их среды, взаимодействующих между собой." },
+    { frontTitle: "Что такое испарение?", backImage: "img/evaporation-photo.jpg", backText: "Испарение — это процесс превращения жидкости в газ под воздействием температуры." },
+    { frontTitle: "Как растения размножаются?", backImage: "img/reproduction-photo.jpg", backText: "Растения могут размножаться как половым, так и бесполым способом (черенкование, деление и семена)." },
+    { frontTitle: "Как растения регулируют водный баланс?", backImage: "img/water-regulation-photo.jpg", backText: "Растения регулируют водный баланс через транспирацию и корневое поглощение воды." },
+    { frontTitle: "Что такое генетика?", backImage: "img/genetics-photo.jpg", backText: "Генетика — наука о наследственности и изменчивости организмов." },
+    { frontTitle: "Что такое эволюция?", backImage: "img/evolution-photo.jpg", backText: "Эволюция — это процесс изменения видов живых существ через поколения, обусловленный естественным отбором." },
+    { frontTitle: "Что такое биологическое разнообразие?", backImage: "img/biodiversity-photo.jpg", backText: "Биологическое разнообразие включает разнообразие видов, экосистем и генетического материала на Земле." },
+    { frontTitle: "Что такое иммунитет?", backImage: "img/immunity-photo.jpg", backText: "Иммунитет — это способность организма защищаться от чуждых веществ, таких как бактерии и вирусы." },
+    { frontTitle: "Что такое микроорганизмы?", backImage: "img/microorganisms-photo.jpg", backText: "Микроорганизмы — это живые организмы, слишком мелкие, чтобы быть видимыми невооружённым глазом, например, бактерии." },
+    { frontTitle: "Что такое биомы?", backImage: "img/biomes-photo.jpg", backText: "Биомы — это крупные экосистемы, характерные для определённых климатических зон, такие как леса, пустыни и степи." },
+    { frontTitle: "Что такое опыление?", backImage: "img/pollination-photo.jpg", backText: "Опыление — это процесс переноса пыльцы с тычинок цветка на пестик другого цветка того же вида." },
+    { frontTitle: "Что такое азотный цикл?", backImage: "img/nitrogen-cycle-photo.jpg", backText: "Азотный цикл — это процесс превращения азота в различные формы, которые могут использовать растения и животные." },
+    { frontTitle: "Что такое пищевые цепочки?", backImage: "img/food-chain-photo.jpg", backText: "Пищевые цепочки — это последовательность организмов, в которой каждый последующий организм питается предыдущим." },
+    { frontTitle: "Что такое дыхание?", backImage: "img/respiration-photo.jpg", backText: "Дыхание — это процесс, при котором организмы поглощают кислород и выделяют углекислый газ." },
+    { frontTitle: "Что такое адаптация?", backImage: "img/adaptation-photo.jpg", backText: "Адаптация — это процесс, в результате которого виды становятся более подходящими для выживания в своей среде." },
+    { frontTitle: "Что такое фотосинтез?", backImage: "img/photosynthesis-photo.jpg", backText: "Фотосинтез — это процесс, при котором растения используют солнечную энергию для производства органических веществ." }
+];
+
+let currentCardIndex = 0;
+const cardElement = document.getElementById('card');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+const frontTitleElement = cardElement.querySelector('[data-front-title]');
+const backImageElement = cardElement.querySelector('.card-back .back-image');
+const backTextElement = cardElement.querySelector('[data-back-text]');
+
+function updateCard(index) {
+    const cardData = cardsData[index];
+    frontTitleElement.textContent = cardData.frontTitle;
+    backImageElement.src = cardData.backImage;
+    backTextElement.textContent = cardData.backText;
+    cardElement.classList.remove('flipped');
+}
+
+function showCard(index) {
+    if (index >= 0 && index < cardsData.length) {
+        currentCardIndex = index;
+        updateCard(currentCardIndex);
+        updateNavigationButtons();
+    }
+}
+
+function nextCard() {
+    showCard(currentCardIndex + 1);
+}
+
+function prevCard() {
+    showCard(currentCardIndex - 1);
+}
+
+function flipCard() {
+    cardElement.classList.toggle('flipped');
+}
+
+function updateNavigationButtons() {
+    prevBtn.classList.toggle('hidden', currentCardIndex === 0);
+    nextBtn.classList.toggle('hidden', currentCardIndex === cardsData.length - 1);
+}
+
+prevBtn.addEventListener('click', prevCard);
+nextBtn.addEventListener('click', nextCard);
+cardElement.addEventListener('click', flipCard);
+
+showCard(0);
