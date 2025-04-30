@@ -8,7 +8,7 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
+            background-color: #f0fff0; /* Лаймовый цвет */
             color: #333;
             display: flex;
             flex-direction: column;
@@ -31,9 +31,22 @@
             transition: transform 0.6s;
             transform-style: preserve-3d;
             position: relative;
+            cursor: pointer; /* Указатель при наведении, чтобы показать, что карта кликабельна */
         }
 
         .card.flipped {
+            transform: rotateY(180deg);
+        }
+
+        .card-inner {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.6s;
+        }
+
+        .card.flipped .card-inner {
             transform: rotateY(180deg);
         }
 
@@ -62,12 +75,21 @@
             transform: rotateY(180deg);
         }
 
-        .card img {
+        .card-front img {
             width: 80%;
             height: auto;
             margin-bottom: 10px;
             max-height: 150px;
             object-fit: contain;
+        }
+
+        .card-back img {
+            width: 80%;
+            height: auto;
+            margin-bottom: 10px;
+            max-height: 150px;
+            object-fit: contain;
+            transform: rotateY(180deg); /* Разворачиваем nature-photo на оборотной стороне */
         }
 
         .card h2 {
@@ -112,7 +134,7 @@
         <div class="card" id="card">
             <div class="card-inner">
                 <div class="card-front">
-                    <img src="img/nature-photo.jpg" alt="Природа">
+                    <img data-front-image alt="Природа" src="img/nature-photo.jpg">
                     <h2 data-front-title></h2>
                 </div>
                 <div class="card-back">
@@ -125,7 +147,6 @@
 
     <div class="navigation">
         <button class="nav-button" id="prevBtn">Назад</button>
-        <button class="nav-button" id="flipBtn">Перевернуть</button>
         <button class="nav-button" id="nextBtn">Вперед</button>
     </div>
 
@@ -157,8 +178,8 @@
         const cardElement = document.getElementById('card');
         const prevBtn = document.getElementById('prevBtn');
         const nextBtn = document.getElementById('nextBtn');
-        const flipBtn = document.getElementById('flipBtn');
         const cardInner = cardElement.querySelector('.card-inner');
+        const frontImageElement = cardElement.querySelector('.card-front img');
         const frontTitleElement = cardElement.querySelector('[data-front-title]');
         const backImageElement = cardElement.querySelector('[data-back-image]');
         const backTextElement = cardElement.querySelector('[data-back-text]');
@@ -198,7 +219,6 @@
 
         prevBtn.addEventListener('click', prevCard);
         nextBtn.addEventListener('click', nextCard);
-        flipBtn.addEventListener('click', flipCard);
         cardElement.addEventListener('click', flipCard); // Переворот при клике на карточку
 
         // Инициализация первой карточки
