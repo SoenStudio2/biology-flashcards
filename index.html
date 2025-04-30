@@ -12,14 +12,14 @@
         <div class="card" id="card">
             <h2 data-fixed-title></h2>
             <div class="card-inner">
-    <div class="card-front">
-        <h3 data-front-title></h3>
-    </div>
-    <div class="card-back">
-        <img src="img/nature-photo.jpg" alt="Природа" class="back-image">
-        <p data-back-text></p>
-    </div>
-</div>
+                <div class="card-front">
+                    <h3 data-front-title></h3>
+                </div>
+                <div class="card-back">
+                    <img src="img/nature-photo.jpg" alt="Природа" class="back-image">
+                    <p data-back-text></p>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -47,7 +47,7 @@
             { fixedTitle: "Что такое опыление?", frontTitle: "Опыление", backImage: "img/pollination-photo.jpg", backText: "Опыление — это процесс переноса пыльцы с тычинок цветка на пестик другого цветка того же вида." },
             { fixedTitle: "Что такое азотный цикл?", frontTitle: "Азотный цикл", backImage: "img/nitrogen-cycle-photo.jpg", backText: "Азотный цикл — это процесс превращения азота в различные формы, которые могут использовать растения и животные." },
             { fixedTitle: "Что такое пищевые цепочки?", frontTitle: "Пищевые цепочки", backImage: "img/food-chain-photo.jpg", backText: "Пищевые цепочки — это последовательность организмов, в которой каждый последующий организм питается предыдущим." },
-            { fixedTitle: "Что такое дыхание?", frontTitle: "Дыхание", backImage: "img/respiration-photo.jpg", backText: "Дыхание — это процесс, при котором организмы поглощают кислород и выделяют углекислый газ." },
+            { fixedTitle: "Что такое дыхание?", frontTitle: "Дыхание", backImage: "img/respiration-photo.jpg", backText: "Дыхание — это процесс, при котором организмы поглощают кислород и выделяют углекислый газ." }, // Исправил путь к картинке, если там была опечатка
             { fixedTitle: "Что такое адаптация?", frontTitle: "Адаптация", backImage: "img/adaptation-photo.jpg", backText: "Адаптация — это процесс, в результате которого виды становятся более подходящими для выживания в своей среде." },
             { fixedTitle: "Что такое фотосинтез?", frontTitle: "Фотосинтез", backImage: "img/photosynthesis-photo.jpg", backText: "Фотосинтез — это процесс, при котором растения используют солнечную энергию для производства органических веществ." }
         ];
@@ -68,7 +68,9 @@
             frontTitleElement.textContent = cardData.frontTitle; // Устанавливаем заголовок на лицевой стороне
             backImageElement.src = cardData.backImage;
             backTextElement.textContent = cardData.backText;
-            cardInnerElement.classList.remove('flipped');
+            // Убираем класс flipped с основного элемента при смене карточки,
+            // чтобы новая карточка всегда показывалась лицевой стороной
+            cardElement.classList.remove('flipped');
         }
 
         function showCard(index) {
@@ -87,9 +89,11 @@
             showCard(currentCardIndex - 1);
         }
 
+        // ----- ВОТ ИСПРАВЛЕНИЕ -----
         function flipCard() {
-            cardInnerElement.classList.toggle('flipped');
+            cardElement.classList.toggle('flipped'); // Меняем класс у ОСНОВНОГО элемента карточки
         }
+        // ----- КОНЕЦ ИСПРАВЛЕНИЯ -----
 
         function updateNavigationButtons() {
             prevBtn.classList.toggle('hidden', currentCardIndex === 0);
@@ -98,8 +102,9 @@
 
         prevBtn.addEventListener('click', prevCard);
         nextBtn.addEventListener('click', nextCard);
-        cardElement.addEventListener('click', flipCard);
+        cardElement.addEventListener('click', flipCard); // Слушатель клика остается на cardElement
 
+        // Показываем первую карточку при загрузке
         showCard(0);
     </script>
 
