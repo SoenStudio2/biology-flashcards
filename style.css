@@ -49,7 +49,7 @@ body {
     transform: rotateY(180deg);
 }
 
-.card-front, .card-back, .card-mystery {
+.card-front, .card-back {
     position: absolute;
     width: 100%;
     height: 100%;
@@ -68,7 +68,6 @@ body {
 
 .card-front {
     transform: rotateY(0deg);
-    display: none; /* Изначально скрываем лицевую сторону */
 }
 
 .card-back {
