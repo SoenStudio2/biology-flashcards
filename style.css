@@ -1,6 +1,6 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #808000;
+    background-color: #808000; /* Цвет хаки */
     color: #333;
     display: flex;
     flex-direction: column;
@@ -63,7 +63,7 @@ body {
     box-sizing: border-box;
     border-radius: 16px;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-    background-color: #f0f0f0; /* Светло-серый цвет */
+    background-color: #f0f0f0; /* Светло-серый цвет карточки */
 }
 
 .card-front {
@@ -77,15 +77,12 @@ body {
 
 .card-mystery {
     transform: rotateY(0deg); /* Убеждаемся, что видна изначально */
-    font-size: 10rem;
-    font-weight: bold;
-    color: #333;
-}
-
-.card-mystery span {
-    pointer-events: none; /* Добавлено это свойство */
-    display: block; /* Занимает всю ширину и высоту родителя, если нужно */
-    line-height: 1; /* Улучшает вертикальное центрирование */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background-color: #f0f0f0; /* Светло-серый цвет карточки */
 }
 
 .card-back img {
