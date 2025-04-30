@@ -12,7 +12,6 @@ body {
 
 .card-container {
     width: 500px;
-    /* Высота теперь будет определяться статичным заголовком и вращающейся частью */
     perspective: 1000px;
     margin-bottom: 40px;
     display: flex;
@@ -22,7 +21,6 @@ body {
 
 .card {
     width: 100%;
-    /* Высота вращающейся части */
     position: relative;
     cursor: pointer;
     display: flex;
@@ -34,14 +32,14 @@ body {
     font-size: 2.4rem;
     font-weight: bold;
     margin-top: 0;
-    margin-bottom: 20px; /* Отступ между заголовком и вращающейся частью */
+    margin-bottom: 20px;
     width: 100%;
     text-align: center;
 }
 
 .card-inner {
     width: 100%;
-    height: 600px; /* Фиксированная высота для вращающейся части */
+    height: 600px;
     position: relative;
     transform-style: preserve-3d;
     transition: transform 0.6s;
@@ -51,7 +49,7 @@ body {
     transform: rotateY(180deg);
 }
 
-.card-front, .card-back {
+.card-front, .card-back, .card-mystery {
     position: absolute;
     width: 100%;
     height: 100%;
@@ -59,21 +57,29 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     text-align: center;
     padding: 20px;
     box-sizing: border-box;
     border-radius: 16px;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-    background-color: #D3D3D3;
-    justify-content: center; /* Центрируем содержимое лицевой/обратной стороны */
+    background-color: #f0f0f0; /* Светло-серый цвет */
 }
 
 .card-front {
     transform: rotateY(0deg);
+    display: none; /* Изначально скрываем лицевую сторону */
 }
 
 .card-back {
     transform: rotateY(180deg);
+}
+
+.card-mystery {
+    transform: rotateY(0deg); /* Убеждаемся, что видна изначально */
+    font-size: 10rem;
+    font-weight: bold;
+    color: #333;
 }
 
 .card-back img {
