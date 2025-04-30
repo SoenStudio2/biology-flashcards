@@ -1,6 +1,6 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: lime; /* Зеленый цвет */
+    background-color: lime;
     color: #333;
     display: flex;
     flex-direction: column;
@@ -11,10 +11,10 @@ body {
 }
 
 .card-container {
-    width: 500px; /* Увеличенная ширина */
-    height: 700px; /* Увеличенная высота */
+    width: 500px;
+    height: 700px;
     perspective: 1000px;
-    margin-bottom: 40px; /* Увеличенный отступ */
+    margin-bottom: 40px;
 }
 
 .card {
@@ -46,50 +46,56 @@ body {
     flex-direction: column;
     align-items: center;
     text-align: center;
-    padding: 20px; /* Увеличенные отступы */
+    padding: 20px;
     box-sizing: border-box;
-    border-radius: 16px; /* Увеличенные скругления */
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Увеличенная тень */
-    background-color: #D3D3D3; /* Серый цвет внутри карточки */
+    border-radius: 16px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    background-color: #D3D3D3;
 }
 
 .card-front {
-    justify-content: flex-start; /* Текст вверху */
+    justify-content: flex-start;
 }
 
 .card-back {
-    justify-content: center; /* Изображение по центру */
+    justify-content: center;
     transform: rotateY(180deg);
 }
 
 .card-front h2 {
-    font-size: 2.4rem; /* Увеличенный размер шрифта */
+    font-size: 2.4rem;
     font-weight: bold;
-    margin-top: 20px; /* Отступ сверху для текста */
+    margin-top: 20px;
     margin-bottom: 10px;
 }
 
 .card-back img {
     width: 80%;
     height: auto;
-    max-height: 80%; /* Чтобы изображение не выходило за границы */
+    max-height: 60%; /* Уменьшаем высоту изображения, чтобы осталось место для текста */
     object-fit: contain;
+    margin-bottom: 10px; /* Добавляем отступ между изображением и текстом */
+}
+
+.card-back p {
+    font-size: 1.2rem;
+    text-align: center;
 }
 
 .navigation {
     display: flex;
-    gap: 40px; /* Увеличенный отступ между кнопками */
-    margin-top: 30px; /* Отступ сверху от карточки */
+    gap: 40px;
+    margin-top: 30px;
 }
 
 .nav-button {
-    padding: 15px 30px; /* Увеличенные кнопки */
+    padding: 15px 30px;
     font-size: 1.2rem;
     cursor: pointer;
     background-color: #4CAF50;
     color: white;
     border: none;
-    border-radius: 8px; /* Увеличенные скругления */
+    border-radius: 8px;
     transition: background-color 0.3s ease;
 }
 
